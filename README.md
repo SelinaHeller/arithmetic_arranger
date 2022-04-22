@@ -3,7 +3,7 @@ arrange arithmetic problems vertically to make them easier to solve
 
 Idea and Assignment are from FreeCodeCamp at https://www.freecodecamp.org/ in the course "Scientific Computing with Python"
 
-### Assignment
+### Task
 
 Students in primary school often arrange arithmetic problems vertically to make them easier to solve. For example, "235 + 52" becomes:
 ```
@@ -41,7 +41,7 @@ Output:
   40     -3800     19998      474
 ```
 
-### Rules
+### Requirements
 
 The function will return the correct conversion if the supplied problems are properly formatted, otherwise, it will **return** a **string** that describes an error that is meaningful to the user.
 
