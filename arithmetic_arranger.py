@@ -4,12 +4,10 @@ def arithmetic_arranger(problems,answers = False):
   space = " "
   
   #initialize the lines needed
-  line1 = []
-  line2 = []
-  line3 = []
-  line4 = []
-
-  first = True
+  line1 = ''
+  line2 = ''
+  line3 = ''
+  line4 = ''
   
   #check if there are too many problems supplied
   if len(problems) > 5:
@@ -19,65 +17,67 @@ def arithmetic_arranger(problems,answers = False):
   operators = ("+", "-")
 
   #split the different arithmetic functions
-  for value in problems:
-    problemSplit = value.split(" ")
+  for index,problem in enumerate(problems):
+    problemSplit = problem.split(" ")
+
+    operand1 = problemSplit[0]
+    operand2 = problemSplit[2]
+    operator = problemSplit[1]
   
     #check if operator is permitted
-    if problemSplit[1] not in operators:
+    if operator not in operators:
       return("Error: Operator must be '+' or '-'.")
   
     #check if operands are digits
-    if not (problemSplit[0].isdigit() and problemSplit[2].isdigit()):
+    if not (operand1.isdigit() and operand2.isdigit()):
       return("Error: Numbers must only contain digits.")
     
     #check if each operand has no more than 4 digits
-    if len(problemSplit[0]) > 4 or len(problemSplit[2]) > 4:
+    if len(operand1) > 4 or len(operand2) > 4:
       return("Error: Numbers cannot be more than four digits.")
 
     # find the longest of the two operands to get the max number of spaces in the lines + two additional spaces for operator and a free space between operators and operands
-    spaces_needed = max(len(problemSplit[0]),len(problemSplit[2]))+2
+    spaces_needed = max(len(operand1),len(operand2))+2
 
-    #check if it is the first problem
-    if first == True:
+    #fill in lines in line3 with appropriate amount of dashes
+    #line3.append(dash*spaces_needed + space*4)
+    line3 = dash*spaces_needed
     
-      #fill in lines in line3 with appropriate amount of dashes
-      #line3.append(dash*spaces_needed + space*4)
-      line3 = dash*spaces_needed
-    
-      #fill in the lines 1 & 2 with operands, operators and the appropriate amount of spaces
-      spaces_needed_line1 = spaces_needed - len(problemSplit[0])
-      line1 = space*spaces_needed_line1 + problemSplit[0]
+    #fill in the lines 1 & 2 with operands, operators and the appropriate amount of spaces
+    spaces_needed_line1 = spaces_needed - len(operand1)
+    line1 = space*spaces_needed_line1 + operand1
 
-      spaces_needed_line2 = spaces_needed - 2 - len(problemSplit[2])
-      line2 = problemSplit[1] + space + space*spaces_needed_line2 + problemSplit[2]
+    spaces_needed_line2 = spaces_needed - 2 - len(operand2)
+    line2 = operator + space + space*spaces_needed_line2 + operand2
 
-      #fill in the result line, if needed
-      result = str(eval(value))
-      spaces_needed_line4 = spaces_needed - len(result) 
-      line4 = space*spaces_needed_line4 + str(result)
+    #fill in the result line, if needed
+    result = str(eval(problem))
+    spaces_needed_line4 = spaces_needed - len(result) 
+    line4 = space*spaces_needed_line4 + str(result)
 
-      first = False
-
-    else:
+    if (index < len(problems) - 1):
       #fill in lines in line3 with appropriate amount of dashes
       #line3.append(dash*spaces_needed + space*4)
       line3 = space* 4 + dash*spaces_needed
     
       #fill in the lines 1 & 2 with operands, operators and the appropriate amount of spaces
-      spaces_needed_line1 = spaces_needed - len(problemSplit[0])
-      line1 = space*4 + space*spaces_needed_line1 + problemSplit[0]
+      spaces_needed_line1 = spaces_needed - len(operand1)
+      line1 = space*4 + space*spaces_needed_line1 + operand1
 
-      spaces_needed_line2 = spaces_needed - 2 - len(problemSplit[2])
-      line2 = space*4 + problemSplit[1] + space + space*spaces_needed_line2 + problemSplit[2]
+      spaces_needed_line2 = spaces_needed - 2 - len(operand2)
+      line2 = space*4 + operator + space + space*spaces_needed_line2 + operand2
 
       #fill in the result line, if needed
-      result = str(eval(value))
+      result = str(eval(problem))
       spaces_needed_line4 = spaces_needed - len(result) 
       line4 = space*4 + space*spaces_needed_line4 + str(result)
-  
+      
   # return the arranged problems
-  if answers == True:
+  if answers:
+    print(line1 + "\n" + line2 + "\n" + line3 + "\n"+ line4)
     return line1 + "\n" + line2 + "\n" + line3 + "\n"+ line4
   else:
+    print(line1 + "\n" + line2 + "\n" + line3)
     return line1 + "\n" + line2 + "\n"+ line3
+    
     
